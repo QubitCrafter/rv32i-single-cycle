@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 Utkarsh
+Copyright (c) 2026 Utkarsh Babbar
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,6 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+-------------------------------------------------------------------------------
+RISC-V Notice
+-------------------------------------------------------------------------------
+
+This project is an independent implementation of the RISC-V ISA.
+RISC-V is an open instruction set architecture maintained by RISC-V International.
+This project is not affiliated with or endorsed by RISC-V International.
 
 -------------------------------------------------------------------------------
 THIRD-PARTY COMPONENTS
