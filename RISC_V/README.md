@@ -4,9 +4,9 @@
 ![Language](https://img.shields.io/badge/language-SystemVerilog-orange.svg)
 ![Simulator](https://img.shields.io/badge/simulator-Vivado%20XSIM%202025.2-green.svg)
 ![Synthesis](https://img.shields.io/badge/synthesis-Yosys%20%2B%20ASAP7%207nm-purple.svg)
-![Tests](https://img.shields.io/badge/tests-34%2F34%20PASS-brightgreen.svg)
+![Tests](https://img.shields.io/badge/tests-42%2F42%20PASS-brightgreen.svg)
 
-A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **SystemVerilog**. Verified with a task-based testbench achieving **34/34 tests passing** under Vivado XSIM, and taken through a complete open-source ASIC flow — RTL linting, logic synthesis on a **7nm ASAP7 PDK**, and static timing analysis with OpenSTA.
+A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **SystemVerilog**. Verified with a task-based testbench achieving **42/42 tests passing** under Vivado XSIM, and taken through a complete open-source ASIC flow — RTL linting, logic synthesis on a **7nm ASAP7 PDK**, and static timing analysis with OpenSTA.
 
 ---
 
@@ -157,7 +157,7 @@ All **42 tests pass** on the reference `program.hex`:
 === Load/Store Tests ===           [PASS] SW Mem[5]=x1, LW x25=Mem[5]
 === Branch Tests ===               [PASS] BEQ not-taken, BEQ taken, landing
 === Jump Tests ===                 [PASS] JAL link, JAL landing, JALR link, JALR landing
-=== x0 Hardwire Test ===          [PASS] x0 stays 0 after write
+=== x0 Hardwire Test ===           [PASS] x0 stays 0 after write
 === M-Extension Tests ===          [PASS] MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU
 
 ============================================================
