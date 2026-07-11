@@ -1,0 +1,63 @@
+============================================================
+ RISCTop Task-Based Testbench
+ Instructions loaded from: program.hex
+============================================================
+
+=== Init Register Tests ===
+[PASS]                   ADDI x1 = 10 | got 0x0000000a
+[PASS]                   ADDI x2 = 20 | got 0x00000014
+[PASS]                    ADDI x3 = 3 | got 0x00000003
+
+=== R-Type Instruction Tests ===
+[PASS]             ADD  x4  = x1 + x2 | got 0x0000001e
+[PASS]             SUB  x5  = x2 - x1 | got 0x0000000a
+[PASS]             AND  x6  = x1 & x2 | got 0x00000000
+[PASS]              OR  x7  = x1 | x2 | got 0x0000001e
+[PASS]             XOR  x8  = x1 ^ x2 | got 0x0000001e
+[PASS]            SLL  x9  = x1 << x3 | got 0x00000050
+[PASS]            SRL  x10 = x1 >> x3 | got 0x00000001
+[PASS]           SRA  x11 = x1 >>> x3 | got 0x00000001
+[PASS]          SLT  x12 = (x1 < x2)? | got 0x00000001
+[PASS]         SLTU  x13 = (x1 < x2)? | got 0x00000001
+
+=== I-Type Arithmetic Tests ===
+[PASS]          ADDI  x14 = x1 + (-3) | got 0x00000007
+[PASS]          ANDI  x15 = x1 & 0x0F | got 0x0000000a
+[PASS]          ORI   x16 = x1 | 0xF0 | got 0x000000fa
+[PASS]          XORI  x17 = x1 ^ 0xFF | got 0x000000f5
+[PASS]            SLLI  x18 = x1 << 4 | got 0x000000a0
+[PASS]            SRLI  x19 = x1 >> 1 | got 0x00000005
+[PASS]           SRAI  x20 = x1 >>> 1 | got 0x00000005
+[PASS]         SLTI  x21 = (x1 < 20)? | got 0x00000001
+[PASS]        SLTIU  x22 = (x1 < 20)? | got 0x00000001
+
+=== Upper-Immediate Tests ===
+[PASS]        LUI   x23 = 0xDEADB<<12 | got 0xdeadb000
+[PASS]         AUIPC x24 = PC+0x10000 | got 0x0001005c
+
+=== Load/Store Tests ===
+[PASS]               SW   Mem[5] = x1 | got 0x0000000a
+[PASS]             LW   x25  = Mem[5] | got 0x0000000a
+
+=== Branch Tests ===
+[PASS]         BEQ not-taken: x26 = 1 | got 0x00000001
+[PASS]          BEQ taken: x27 stays 0 | got 0x00000000
+[PASS]           BEQ landing: x28 = 1 | got 0x00000001
+
+=== Jump Tests ===
+[PASS]         JAL  x29 = PC+4 (link) | got 0x00000080
+[PASS]          JAL  landing: x30 = 1 | got 0x00000001
+[PASS]         JALR x31 = PC+4 (link) | got 0x0000008c
+[PASS]         JALR landed at PC=0x90 | got 0x000000a0
+
+=== x0 Hardwire Test ===
+[PASS]         x0 stays 0 after write | got 0x00000000
+
+============================================================
+ TEST SUMMARY
+============================================================
+ Total : 34
+ PASS  : 34
+ FAIL  : 0
+ >>> ALL TESTS PASSED <<<
+============================================================

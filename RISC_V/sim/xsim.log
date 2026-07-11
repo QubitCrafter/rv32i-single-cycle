@@ -1,0 +1,99 @@
+#-----------------------------------------------------------
+# xsim v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Sat Jul 11 19:56:46 2026
+# Process ID         : 132770
+# Current directory  : /home/utkarsh/Desktop/RISC_V
+# Command line       : xsim -mode tcl -source {xsim.dir/RISCTop_sim/xsim_script.tcl}
+# Log file           : /home/utkarsh/Desktop/RISC_V/xsim.log
+# Journal file       : /home/utkarsh/Desktop/RISC_V/xsim.jou
+# Running On         : localhost.localdomain
+# Platform           : rhel
+# Operating System   : Red Hat Enterprise Linux 10.2 (Coughlan)"
+RELEASE_TYPE=stable
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i9-13900HX
+# CPU Frequency      : 2419.198 MHz
+# CPU Physical cores : 16
+# CPU Logical cores  : 16
+# Host memory        : 4847 MB
+# Swap memory        : 8422 MB
+# Total Virtual      : 13269 MB
+# Available Virtual  : 11895 MB
+#-----------------------------------------------------------
+source xsim.dir/RISCTop_sim/xsim_script.tcl
+# xsim {RISCTop_sim} -wdb {RISCTop_full.wdb} -autoloadwcfg -tclbatch {xsim_batch.tcl} -runall
+Time resolution is 1 ps
+WARNING: [Simtcl 6-25] Warning: Both '-runall' and '-tclbatch' were specified. The '-runall' was ignored
+source xsim_batch.tcl
+## log_wave -recursive *
+## run all
+============================================================
+ RISCTop Task-Based Testbench
+ Instructions loaded from: program.hex
+============================================================
+
+=== Init Register Tests ===
+[PASS]                   ADDI x1 = 10 | got 0x0000000a
+[PASS]                   ADDI x2 = 20 | got 0x00000014
+[PASS]                    ADDI x3 = 3 | got 0x00000003
+
+=== R-Type Instruction Tests ===
+[PASS]             ADD  x4  = x1 + x2 | got 0x0000001e
+[PASS]             SUB  x5  = x2 - x1 | got 0x0000000a
+[PASS]             AND  x6  = x1 & x2 | got 0x00000000
+[PASS]             OR   x7  = x1 | x2 | got 0x0000001e
+[PASS]             XOR  x8  = x1 ^ x2 | got 0x0000001e
+[PASS]            SLL  x9  = x1 << x3 | got 0x00000050
+[PASS]            SRL  x10 = x1 >> x3 | got 0x00000001
+[PASS]           SRA  x11 = x1 >>> x3 | got 0x00000001
+[PASS]          SLT  x12 = (x1 < x2)? | got 0x00000001
+[PASS]          SLTU x13 = (x1 < x2)? | got 0x00000001
+
+=== I-Type Arithmetic Tests ===
+[PASS]          ADDI  x14 = x1 + (-3) | got 0x00000007
+[PASS]          ANDI  x15 = x1 & 0x0F | got 0x0000000a
+[PASS]          ORI   x16 = x1 | 0xF0 | got 0x000000fa
+[PASS]          XORI  x17 = x1 ^ 0xFF | got 0x000000f5
+[PASS]            SLLI  x18 = x1 << 4 | got 0x000000a0
+[PASS]            SRLI  x19 = x1 >> 1 | got 0x00000005
+[PASS]           SRAI  x20 = x1 >>> 1 | got 0x00000005
+[PASS]         SLTI  x21 = (x1 < 20)? | got 0x00000001
+[PASS]         SLTIU x22 = (x1 < 20)? | got 0x00000001
+
+=== Upper-Immediate Tests ===
+[PASS]        LUI   x23 = 0xDEADB<<12 | got 0xdeadb000
+[PASS]         AUIPC x24 = PC+0x10000 | got 0x0001005c
+
+=== Load/Store Tests ===
+[PASS]               SW   Mem[5] = x1 | got 0x0000000a
+[PASS]            LW   x25   = Mem[5] | got 0x0000000a
+
+=== Branch Tests ===
+[PASS]         BEQ not-taken: x26 = 1 | got 0x00000001
+[PASS]         BEQ taken: x27 stays 0 | got 0x00000000
+[PASS]           BEQ landing: x28 = 1 | got 0x00000001
+
+=== Jump Tests ===
+[PASS]         JAL  x29 = PC+4 (link) | got 0x00000080
+[PASS]          JAL  landing: x30 = 1 | got 0x00000001
+[PASS]         JALR x31 = PC+4 (link) | got 0x0000008c
+[PASS]         JALR landed at PC=0x90 | got 0x000000a0
+
+=== x0 Hardwire Test ===
+[PASS]         x0 stays 0 after write | got 0x00000000
+
+============================================================
+ TEST SUMMARY
+============================================================
+ Total : 34
+ PASS  : 34
+ FAIL  : 0
+ >>> ALL TESTS PASSED <<<
+============================================================
+
+$finish called at time : 386 ns : File "/home/utkarsh/Desktop/RISC_V/tb/RISCTop_tb.sv" Line 284
+## quit
+INFO: xsimkernel Simulation Memory Usage: 506652 KB (Peak: 555212 KB), Simulation CPU Usage: 1960 ms
+INFO: [Common 17-206] Exiting xsim at Sat Jul 11 19:56:50 2026...

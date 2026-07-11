@@ -1,0 +1,56 @@
+# =============================================================
+#  .gitignore — RISC-V Single-Cycle Processor Project
+# =============================================================
+
+# ---- Vivado / XSIM Build Artifacts (root-level) ----
+xsim.dir/
+.Xil/
+*.jou
+*.pb
+*.wdb
+*.vcd
+*.str
+*.bit
+*.wcfg
+webtalk*
+xvlog*.log
+xelab*.log
+xsim_batch.tcl
+xsim_gui.tcl
+program.hex
+
+# ---- Synthesis & STA Build Directories ----
+synth/
+sta/
+synth_dc/
+vivado_project/
+vivado_pid*.str
+synth_schematic.tcl
+create_project.tcl
+
+# ---- Lint artifacts ----
+sim/lint_vivado_report.txt
+obj_dir/
+
+# ---- OS / Editor Files ----
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ---- IDEs ----
+.vscode/
+.idea/
+
+# ---- Windows ----
+desktop.ini
+
+# ============================================================
+# Files intentionally TRACKED (proof of work):
+#   sim/sim_results.txt       — testbench pass/fail log
+#   sim/xsim.log              — full simulation session log
+#   sim/program.hex           — assembled test program
+#   reports/                  — synthesis, timing, power reports
+#   docs/schematics/          — schematic PDFs
+# ============================================================
