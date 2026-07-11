@@ -233,8 +233,8 @@ Overall Progress
 
 Completed
 ─────────
-✅ Phase 1
-✅ Phase 2
+✅ Phase 1 — Completed (v1.0)
+✅ Phase 2 — Completed (v1.1)
 
 Upcoming
 ────────
@@ -244,7 +244,7 @@ Upcoming
 ```
 
 ```text
-Detailed Roadmap
+Project Roadmap
 
 Phase 1 — RV32I Single-Cycle Processor
 ──────────────────────────────────────
@@ -268,7 +268,7 @@ Phase 3 — 5-Stage Pipeline
 ⬜ Hazard Detection Unit
 ⬜ Forwarding Unit
 ⬜ Branch Flush
-⬜ Pipeline Verification
+⬜ Module & Integration Verification
 
 Phase 4 — UVM Verification
 ──────────────────────────
@@ -284,13 +284,20 @@ Phase 4 — UVM Verification
 ⬜ Environment
 ⬜ Tests
 
-Phase 5 — Memory Hierarchy
+Phase 5 — Memory Subsystem
 ──────────────────────────
 ⬜ I-Cache
 ⬜ D-Cache
 ⬜ Cache Controller
 ⬜ Memory Controller
 ⬜ Modified Harvard Architecture
+
+Future Extensions
+────────────────────────
+• Branch Prediction
+• CSR Support
+• Exceptions & Interrupts
+• MMU (optional)
 ```
 
 ---
