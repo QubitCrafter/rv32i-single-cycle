@@ -1,4 +1,4 @@
-# RISC-V Single-Cycle Processor — RV32I
+# RISC-V Single-Cycle Processor — RV32IM
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Language](https://img.shields.io/badge/language-SystemVerilog-orange.svg)
@@ -6,7 +6,7 @@
 ![Synthesis](https://img.shields.io/badge/synthesis-Yosys%20%2B%20ASAP7%207nm-purple.svg)
 ![Tests](https://img.shields.io/badge/tests-34%2F34%20PASS-brightgreen.svg)
 
-A fully functional, single-cycle **RISC-V RV32I** processor implemented in **SystemVerilog**. Verified with a task-based testbench achieving **34/34 tests passing** under Vivado XSIM, and taken through a complete open-source ASIC flow — RTL linting, logic synthesis on a **7nm ASAP7 PDK**, and static timing analysis with OpenSTA.
+A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **SystemVerilog**. Verified with a task-based testbench achieving **34/34 tests passing** under Vivado XSIM, and taken through a complete open-source ASIC flow — RTL linting, logic synthesis on a **7nm ASAP7 PDK**, and static timing analysis with OpenSTA.
 
 ---
 
@@ -37,7 +37,7 @@ A fully functional, single-cycle **RISC-V RV32I** processor implemented in **Sys
           └────────────────────────────────────────────────────────────────────┘
 ```
 
-### Supported Instructions (RV32I Subset)
+### Supported Instructions (RV32IM Subset)
 
 | Category | Instructions |
 |:---|:---|
@@ -47,6 +47,7 @@ A fully functional, single-cycle **RISC-V RV32I** processor implemented in **Sys
 | **Load / Store** | `LW`, `SW` |
 | **Branch** | `BEQ` |
 | **Jump** | `JAL`, `JALR` |
+| **M-Extension (Multiply/Divide)** | `MUL`, `MULH`, `MULHSU`, `MULHU`, `DIV`, `DIVU`, `REM`, `REMU` |
 
 ---
 
@@ -141,7 +142,7 @@ make clean_all
 
 ## Test Results
 
-All **34 tests pass** on the reference `program.hex`:
+All **42 tests pass** on the reference `program.hex`:
 
 ```
 ============================================================
@@ -157,9 +158,10 @@ All **34 tests pass** on the reference `program.hex`:
 === Branch Tests ===               [PASS] BEQ not-taken, BEQ taken, landing
 === Jump Tests ===                 [PASS] JAL link, JAL landing, JALR link, JALR landing
 === x0 Hardwire Test ===          [PASS] x0 stays 0 after write
+=== M-Extension Tests ===          [PASS] MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU
 
 ============================================================
- TEST SUMMARY:  Total: 34  |  PASS: 34  |  FAIL: 0
+ TEST SUMMARY:  Total: 42  |  PASS: 42  |  FAIL: 0
  >>> ALL TESTS PASSED <<<
 ============================================================
 ```
@@ -175,13 +177,13 @@ The processor was taken through a full open-source ASIC synthesis and static tim
 | Module | Cells | Total Area | Sequential % |
 |:---|---:|---:|---:|
 | `RegFile` | 4382 | 632.12 | 59.49% |
-| `ALU` | 1025 | 79.53 | 0.00% |
+| `ALU` | 14498 | 1287.75 | 0.00% |
 | `ProgramCounter` | 64 | 13.53 | 89.66% |
 | `ImmediateGenerator` | 65 | 4.67 | 0.00% |
-| `ControlUnit` | 40 | 2.95 | 0.00% |
+| `ControlUnit` | 59 | 4.26 | 0.00% |
 | `InstructionMem` *(blackbox)* | — | 1500.00 | — |
 | `DataMem` *(blackbox)* | — | 3000.00 | — |
-| **RISCTop (total)** | **6167** | **5279.37** | **7.35%** |
+| **RISCTop (total)** | **19655** | **6488.67** | **5.98%** |
 
 ### Timing (`report_timing_riscv_opensta.txt`)
 
@@ -189,18 +191,18 @@ The processor was taken through a full open-source ASIC synthesis and static tim
 |:---|:---|
 | Clock Period | 20,000 ps (50 MHz) |
 | Critical Path | PC → InstructionMem → RegFile → ALU → DataMem |
-| Worst Negative Slack (WNS) | −11,542 ps |
-| Critical Path Bottleneck | `RegFile` (synthesised as std-cell array, not SRAM macro) |
+| Worst Negative Slack (WNS) | −28,325 ps |
+| Critical Path Bottleneck | Single-cycle instruction fetch through RegFile and ALU. |
 
-> **Note:** The timing violation is caused by the `RegFile` being synthesised into ~4,382 standard-cell flip-flops and large multiplexer trees rather than a dedicated SRAM macro. In a real ASIC tapeout this module would be replaced with a compiled 2R1W SRAM, and the design would comfortably meet 50 MHz.
+> **Note:** The severe timing violation is caused by the Single-Cycle architecture inherently requiring instruction fetch, register reads, full ALU execution, and data memory access to all resolve in a single clock cycle, resulting in a massive combinational delay footprint.
 
 ### Power (`report_power_riscv_opensta.txt`)
 
 | Group | Internal | Leakage | Total |
 |:---|---:|---:|---:|
-| Sequential | 1.97 mW | 7.14 mW | 9.10 mW |
-| Combinational | 6.05 mW | 5.30 mW | 11.35 mW |
-| **Total** | **8.01 mW** | **12.44 mW** | **20.40 mW** |
+| Sequential | 33.0 µW | 146.0 µW | 179.0 µW |
+| Combinational | 0.0 µW | 1.37 mW | 1.37 mW |
+| **Total** | **33.0 µW** | **1.51 mW** | **1.55 mW** |
 
 > Switching power is not included as no VCD/SAIF activity file was provided to the tool.
 
@@ -211,7 +213,7 @@ The processor was taken through a full open-source ASIC synthesis and static tim
 | Module | File | Description |
 |:---|:---|:---|
 | `RISCTop` | `rtl/RISCTop.sv` | Top-level: wires all sub-modules, exposes observable outputs |
-| `ALU` | `rtl/ALU.sv` | 10-operation ALU with zero flag |
+| `ALU` | `rtl/ALU.sv` | 18-operation ALU (Base + M-Extension) with zero flag |
 | `ControlUnit` | `rtl/ControlUnit.sv` | Decodes opcode + funct3 + funct7 into all control signals |
 | `RegFile` | `rtl/RegFile.sv` | 32×32-bit register file; x0 permanently reads as 0 |
 | `ImmediateGenerator` | `rtl/ImmediateGenerator.sv` | Sign-extends immediates for R/I/S/B/U/J formats |

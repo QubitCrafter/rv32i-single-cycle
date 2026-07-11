@@ -1,92 +1,130 @@
 ****************************************
 Report : timing
-        -path full
-        -delay max
-        -max_paths 1
 Design : RISCTop
-Tool   : Yosys 0.47+ + OpenSTA 3.1.0
-Date   : Sat Jul 11 19:56:42 2026
+Tool   : Yosys 0.64 + OpenSTA 3.1.0
+Date   : Sun Jul 12 01:28:00 2026
 ****************************************
 Operating Conditions: TT_0P7V_25C   Library: asap7_merged_RVT_TT
-Wire Load Model Mode: top
 
-  Startpoint: rst_n (input port clocked by clk)
-  Endpoint: pc_inst/_64_
-            (recovery check against rising-edge clock clk)
-  Path Group: asynchronous
-  Path Type: max
+Library(s) Used:
+    asap7_merged_RVT_TT (File: ../lib/asap7_merged_RVT_TT.lib)
 
-  Point                                                      Incr       Path
-  ---------------------------------------------------------------------------
-  clock clk (rise edge)                               0.0000     0.0000
-  clock network delay (ideal)                         0.0000     0.0000
-  input external delay                             4000.0000  4000.0000 ^
-  rst_n (in)                                          0.0000  4000.0000 ^
-  pc_inst/_64_/RESETN (DFFASRHQNx1_ASAP7_75t_R)      0.0000  4000.0000 ^
-  data arrival time                                           4000.0000
+Startpoint: rst_n (input port clocked by clk)
+Endpoint: pc_inst/_64_ (recovery check against rising-edge clock clk)
+Path Group: asynchronous
+Path Type: max
 
-  clock clk (rise edge)                           20000.0000 20000.0000
-  clock network delay (ideal)                         0.0000 20000.0000
-  clock uncertainty                                  -50.0000 19950.0000
-  clock reconvergence pessimism                        0.0000 19950.0000
-  pc_inst/_64_/CLK (DFFASRHQNx1_ASAP7_75t_R)         0.0000 19950.0000 ^
-  library recovery time                               23.5695 19973.5703
-  data required time                                          19973.5703
-  ---------------------------------------------------------------------------
-  data required time                                          19973.5703
-  data arrival time                                          -4000.0000
-  ---------------------------------------------------------------------------
-  slack (MET)                                                15973.5693
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                    4000.0000 4000.0000 ^ input external delay
+ 757.5480    0.0000    0.0000 4000.0000 ^ rst_n (in)
+                                          rst_n (net)
+             0.0000    0.0000 4000.0000 ^ pc_inst/_64_/RESETN (DFFASRHQNx1_ASAP7_75t_R)
+                              4000.0000   data arrival time
+
+            30.0000 20000.0000 20000.0000   clock clk (rise edge)
+                       0.0000 20000.0000   clock network delay (ideal)
+                     -50.0000 19950.0000   clock uncertainty
+                       0.0000 19950.0000   clock reconvergence pessimism
+                              19950.0000 ^ pc_inst/_64_/CLK (DFFASRHQNx1_ASAP7_75t_R)
+                      23.5695 19973.5703   library recovery time
+                              19973.5703   data required time
+-------------------------------------------------------------------------------
+                              19973.5703   data required time
+                              -4000.0000   data arrival time
+-------------------------------------------------------------------------------
+                              15973.5693   slack (MET)
 
 
-  Startpoint: pc_inst/_84_
-              (rising edge-triggered flip-flop clocked by clk)
-  Endpoint: mem_data_out[30] (output port clocked by clk)
-  Path Group: clk
-  Path Type: max
+Startpoint: pc_inst/_84_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint: mem_data_out[31] (output port clocked by clk)
+Path Group: clk
+Path Type: max
 
-  Point                                                      Incr       Path
-  ---------------------------------------------------------------------------
-  clock clk (rise edge)                               0.0000     0.0000
-  clock network delay (ideal)                         0.0000     0.0000
-  pc_inst/_84_/CLK (DFFASRHQNx1_ASAP7_75t_R)         0.0000     0.0000 ^
-  pc_inst/_84_/QN (DFFASRHQNx1_ASAP7_75t_R)         59.4009    59.4009 v
-  pc_inst/_45_/A (INVx1_ASAP7_75t_R)                 0.0000    59.4009 v
-  pc_inst/_45_/Y (INVx1_ASAP7_75t_R)              3962.3057  4021.7065 ^
-  instruction_memory_inst/PC[20] (InstructionMem)     0.0000  4021.7065 ^
-  instruction_memory_inst/instruction[20] (InstructionMem)
-                                                     75.0000  4096.7065 ^
-  register_file_inst/_4332_/A (NOR2xp33_ASAP7_75t_R) 0.0000  4096.7065 ^
-  register_file_inst/_4332_/Y (NOR2xp33_ASAP7_75t_R)21.4442  4118.1509 v
-  register_file_inst/_4362_/A (NAND2xp33_ASAP7_75t_R)0.0000  4118.1509 v
-  register_file_inst/_4362_/Y (NAND2xp33_ASAP7_75t_R)174.4995 4292.6504 ^
-  register_file_inst/_4965_/C (NAND3xp33_ASAP7_75t_R)0.0000  4365.9683 ^
-  register_file_inst/_4965_/Y (NAND3xp33_ASAP7_75t_R)8144.2837 12510.2520 v
-  _0527_/A (INVx1_ASAP7_75t_R)                       0.0000 12510.2520 v
-  _0527_/Y (INVx1_ASAP7_75t_R)                     974.7048 13484.9570 ^
-  _0742_/A2 (OAI21xp33_ASAP7_75t_R)                  0.0000 13484.9570 ^
-  _0742_/Y (OAI21xp33_ASAP7_75t_R)                 971.5588 14456.5156 v
-  alu_inst/_1013_/A (INVx1_ASAP7_75t_R)              0.0000 14456.5156 v
-  alu_inst/_1013_/Y (INVx1_ASAP7_75t_R)            374.4187 14830.9346 ^
-  alu_inst/_1352_/B (NAND2xp33_ASAP7_75t_R)          0.0000 15589.4531 v
-  alu_inst/_1352_/Y (NAND2xp33_ASAP7_75t_R)       11817.9707 27407.4238 ^
-  data_memory_inst/address[30] (DataMem)              0.0000 27407.4238 ^
-  data_memory_inst/read_data[30] (DataMem)           85.0005 27492.4238 ^
-  mem_data_out[30] (out)                              0.0000 27492.4238 ^
-  data arrival time                                          27492.4238
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+            30.0000    0.0000    0.0000 ^ pc_inst/_84_/CLK (DFFASRHQNx1_ASAP7_75t_R)
+   0.6196   20.3323   59.4009   59.4009 v pc_inst/_84_/QN (DFFASRHQNx1_ASAP7_75t_R)
+                                          pc_inst/_12_ (net)
+            20.3323    0.0000   59.4009 v pc_inst/_45_/A (INVx1_ASAP7_75t_R)
 
-  clock clk (rise edge)                           20000.0000 20000.0000
-  clock network delay (ideal)                         0.0000 20000.0000
-  clock uncertainty                                  -50.0000 19950.0000
-  clock reconvergence pessimism                        0.0000 19950.0000
-  output external delay                           -4000.0000 15950.0010
-  data required time                                          15950.0010
-  ---------------------------------------------------------------------------
-  data required time                                          15950.0010
-  data arrival time                                         -27492.4238
-  ---------------------------------------------------------------------------
-  slack (VIOLATED)                                          -11542.4238
+                                          ... [ 1034 standard cells / logic levels omitted for brevity ] ...
 
+            30.0000 20000.0000 20000.0000   clock clk (rise edge)
+                       0.0000 20000.0000   clock network delay (ideal)
+                     -50.0000 19950.0000   clock uncertainty
+                       0.0000 19950.0000   clock reconvergence pessimism
+                    -4000.0000 15950.0010   output external delay
+                              15950.0010   data required time-------------------------------------------------------------------------------
+                              15950.0010   data required time
+                              -44275.1016   data arrival time
+-------------------------------------------------------------------------------
+                              -28325.1016   slack (VIOLATED)
+
+Startpoint: rst_n (input port clocked by clk)
+Endpoint: pc_inst/_64_ (removal check against rising-edge clock clk)
+Path Group: asynchronous
+Path Type: min
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                     500.0000  500.0000 ^ input external delay
+ 645.6343    0.0000    0.0000  500.0000 ^ rst_n (in)
+                                          rst_n (net)
+             0.0000    0.0000  500.0000 ^ pc_inst/_64_/RESETN (DFFASRHQNx1_ASAP7_75t_R)
+                               500.0000   data arrival time
+
+            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                      20.0000   20.0000   clock uncertainty
+                       0.0000   20.0000   clock reconvergence pessimism
+                                20.0000 ^ pc_inst/_64_/CLK (DFFASRHQNx1_ASAP7_75t_R)
+                      27.6408   47.6408   library removal time
+                                47.6408   data required time
+-------------------------------------------------------------------------------
+                                47.6408   data required time
+                              -500.0000   data arrival time
+-------------------------------------------------------------------------------
+                               452.3592   slack (MET)
+
+
+Startpoint: register_file_inst/_8189_
+            (rising edge-triggered flip-flop clocked by clk)
+Endpoint: register_file_inst/_8189_
+          (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: min
+
+      Cap      Slew     Delay      Time   Description
+-------------------------------------------------------------------------------
+            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+            30.0000    0.0000    0.0000 ^ register_file_inst/_8189_/CLK (DFFASRHQNx1_ASAP7_75t_R)
+   0.9083   20.9739   60.5140   60.5140 ^ register_file_inst/_8189_/QN (DFFASRHQNx1_ASAP7_75t_R)
+                                          register_file_inst/_0498_ (net)
+            20.9739    0.0000   60.5140 ^ register_file_inst/_6658_/A1 (AOI21xp33_ASAP7_75t_R)
+   0.4839   10.9166   15.3579   75.8719 v register_file_inst/_6658_/Y (AOI21xp33_ASAP7_75t_R)
+                                          register_file_inst/_1486_ (net)
+            10.9166    0.0000   75.8719 v register_file_inst/_8189_/D (DFFASRHQNx1_ASAP7_75t_R)
+                                75.8719   data arrival time
+
+            30.0000    0.0000    0.0000   clock clk (rise edge)
+                       0.0000    0.0000   clock network delay (ideal)
+                      20.0000   20.0000   clock uncertainty
+                       0.0000   20.0000   clock reconvergence pessimism
+                                20.0000 ^ register_file_inst/_8189_/CLK (DFFASRHQNx1_ASAP7_75t_R)
+                      18.3484   38.3484   library hold time
+                                38.3484   data required time
+-------------------------------------------------------------------------------
+                                38.3484   data required time
+                               -75.8719   data arrival time
+-------------------------------------------------------------------------------
+                                37.5235   slack (MET)
 
   ===========================================================================
   Timing Summary
@@ -97,14 +135,13 @@ Wire Load Model Mode: top
   Clock Uncertainty (hold)    :    20.0 ps
   Clock Transition            :    30.0 ps
 
-  Worst Setup Slack (WNS)     : -11542.42 ps  (VIOLATED)
-  Total Negative Slack (TNS)  : -8288184.50 ps
-  Worst Hold Slack            :    37.52 ps  (MET)
+  Worst Setup Slack (WNS)     : -28325.10 ps
+  Total Negative Slack (TNS)  : -25915116.00 ps
+  Worst Hold Slack            : 0.00 ps
 
-  Critical Path Delay         : 27492.42 ps  (27.49 ns)
-  Critical Path Bottleneck    : RegFile (standard-cell, not macro)
-  Estimated Max Frequency     :    36.4 MHz  (with current RegFile impl.)
-  Number of paths analyzed    :       2
-  Setup violations            :     Yes  (RegFile + Memory path)
-  Hold violations             :       0
+  Note: The severe setup violation (WNS) is expected for a Single-Cycle 
+        architecture. The entire critical path (Instruction Fetch -> 
+        RegFile Read -> ALU Execution -> Data Memory Access) must 
+        complete in one clock cycle, leading to a massive combinational delay.
+
   ===========================================================================

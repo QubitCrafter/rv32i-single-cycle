@@ -1,30 +1,29 @@
 ****************************************
 Report : area
 Design : RISCTop
-Tool   : Yosys 0.47+ + OpenSTA 3.1.0
-Date   : Sat Jul 11 19:56:42 2026
+Tool   : Yosys 0.64 + OpenSTA 3.1.0
+Date   : Sun Jul 12 01:28:00 2026
 ****************************************
 Operating Conditions: TT_0P7V_25C   Library: asap7_merged_RVT_TT
 
 Library(s) Used:
     asap7_merged_RVT_TT (File: ../lib/asap7_merged_RVT_TT.lib)
-    asap7_fakeram       (File: ../lib/asap7_fakeram.lib)
 
-Number of ports:                            5
-Number of nets:                          6611
-Number of cells:                         6167
-Number of combinational cells:           5143
-Number of sequential cells:              1024
+Number of ports:                           38
+Number of nets:                           19406
+Number of cells:                          19655
+Number of combinational cells:            18631
+Number of sequential cells:               1024
 Number of macros/black boxes:               2
-Number of buf/inv:                        204
+Number of buf/inv:                         905
 Number of references:                      43
 
-Combinational area:               343.583100
-Buf/Inv area:                       8.923400
+Combinational area:               6100.490340
+Buf/Inv area:                      39.585000
 Noncombinational area:            388.177920
-Macro/Black Box area:            4500.000000
+Macro/Black Box area:              4500.000000
 Net Interconnect area:      undefined  (No wire load specified)
-Total cell area:                 5279.373900
+Total cell area:                  6488.668260
 Total area:                 undefined
 
   ===========================================================================
@@ -32,13 +31,11 @@ Total area:                 undefined
   ===========================================================================
   Module                                                Cells   Total Area     Seq Area     Seq%
   ----------------------------------------------------------------------------------------------
-  RegFile                                              4382    632.115900   376.047360   59.49%
-  ALU                                                  1025     79.533900     0.000000    0.00%
-  ProgramCounter                                         64     13.530240    12.130560   89.66%
-  ImmediateGenerator                                     65      4.665600     0.000000    0.00%
-  ControlUnit                                            40      2.945160     0.000000    0.00%
-  InstructionMem  [blackbox]                              1   1500.000000     0.000000    0.00%
-  DataMem         [blackbox]                              1   3000.000000     0.000000    0.00%
+  ALU                                                   14498  1287.749340     0.000000    0.00%
+  RegFile                                                4382   632.115900   376.047360   59.49%
+  ProgramCounter                                           64    13.530240    12.130560   89.66%
+  ImmediateGenerator                                       65     4.665600     0.000000    0.00%
+  ControlUnit                                              59     4.257360     0.000000    0.00%
   ----------------------------------------------------------------------------------------------
-  RISCTop (total)                                      6167   5279.373900   388.177920    7.35%
+  RISCTop (total)                                       19655  6488.668260   388.177920    5.98%
   ===========================================================================

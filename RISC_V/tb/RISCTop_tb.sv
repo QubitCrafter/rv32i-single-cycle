@@ -238,6 +238,22 @@ module RISCTop_tb;
         check("ADDI x3 = 3",             read_reg(3),  32'h0000_0003);
     endtask
 
+    // -----------------------------------------------------------------------
+    //  M-Extension (MUL, MULH, MULHSU, MULHU, DIV, DIVU, REM, REMU)
+    //  Operands: x10 = -10 (0xFFFFFFF6), x11 = 7 (0x00000007)
+    // -----------------------------------------------------------------------
+    task automatic test_m_extension();
+        $display("\n=== M-Extension Tests ===");
+        check("MUL    x12 = -10 * 7",           read_reg(12), 32'hFFFFFFBA);  // -70
+        check("MULH   x13 = upper(-10 * 7)",    read_reg(13), 32'hFFFFFFFF);  // -1
+        check("MULHSU x14 = signed*unsigned",   read_reg(14), 32'hFFFFFFFF);  // -1
+        check("MULHU  x15 = unsigned*unsigned", read_reg(15), 32'h00000006);  // 6
+        check("DIV    x16 = -10 / 7",           read_reg(16), 32'hFFFFFFFF);  // -1
+        check("DIVU   x17 = unsigned / 7",      read_reg(17), 32'h24924923);  // 613566755
+        check("REM    x18 = -10 % 7",           read_reg(18), 32'hFFFFFFFD);  // -3
+        check("REMU   x19 = unsigned % 7",      read_reg(19), 32'h00000001);  // 1
+    endtask
+
     // ========================================================================
     //  MAIN STIMULUS
     // ========================================================================
@@ -251,14 +267,11 @@ module RISCTop_tb;
         // ---- Reset ----
         do_reset();
 
-        // ---- Run the program ----
-        // 34 instructions execute (some are skipped by branches/jumps).
-        // After 35 cycles every result is committed and the processor
-        // has advanced past the last NOP.
+        // ---- Run base RV32I program ----
         run_cycles(35);
         #1; // small settle time
 
-        // ---- Check results ----
+        // ---- Check base results ----
         test_init_regs();
         test_r_type();
         test_i_type_arith();
@@ -267,6 +280,11 @@ module RISCTop_tb;
         test_branches();
         test_jumps();
         test_x0_hardwire();
+
+        // ---- Run M-extension program ----
+        run_cycles(13);
+        #1;
+        test_m_extension();
 
         // ---- Summary ----
         $display("\n============================================================");

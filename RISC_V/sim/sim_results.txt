@@ -1,3 +1,19 @@
+
+****** xsim v2025.2 (64-bit)
+  **** SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+  **** IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+  **** SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+  **** Start of session at: Sun Jul 12 01:04:15 2026
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source xsim.dir/RISCTop_sim/xsim_script.tcl
+# xsim {RISCTop_sim} -wdb {RISCTop_full.wdb} -autoloadwcfg -tclbatch {xsim_batch.tcl} -runall
+Time resolution is 1 ps
+WARNING: [Simtcl 6-25] Warning: Both '-runall' and '-tclbatch' were specified. The '-runall' was ignored
+source xsim_batch.tcl
+## log_wave -recursive *
+## run all
 ============================================================
  RISCTop Task-Based Testbench
  Instructions loaded from: program.hex
@@ -12,13 +28,13 @@
 [PASS]             ADD  x4  = x1 + x2 | got 0x0000001e
 [PASS]             SUB  x5  = x2 - x1 | got 0x0000000a
 [PASS]             AND  x6  = x1 & x2 | got 0x00000000
-[PASS]              OR  x7  = x1 | x2 | got 0x0000001e
+[PASS]             OR   x7  = x1 | x2 | got 0x0000001e
 [PASS]             XOR  x8  = x1 ^ x2 | got 0x0000001e
 [PASS]            SLL  x9  = x1 << x3 | got 0x00000050
 [PASS]            SRL  x10 = x1 >> x3 | got 0x00000001
 [PASS]           SRA  x11 = x1 >>> x3 | got 0x00000001
 [PASS]          SLT  x12 = (x1 < x2)? | got 0x00000001
-[PASS]         SLTU  x13 = (x1 < x2)? | got 0x00000001
+[PASS]          SLTU x13 = (x1 < x2)? | got 0x00000001
 
 === I-Type Arithmetic Tests ===
 [PASS]          ADDI  x14 = x1 + (-3) | got 0x00000007
@@ -29,7 +45,7 @@
 [PASS]            SRLI  x19 = x1 >> 1 | got 0x00000005
 [PASS]           SRAI  x20 = x1 >>> 1 | got 0x00000005
 [PASS]         SLTI  x21 = (x1 < 20)? | got 0x00000001
-[PASS]        SLTIU  x22 = (x1 < 20)? | got 0x00000001
+[PASS]         SLTIU x22 = (x1 < 20)? | got 0x00000001
 
 === Upper-Immediate Tests ===
 [PASS]        LUI   x23 = 0xDEADB<<12 | got 0xdeadb000
@@ -37,11 +53,11 @@
 
 === Load/Store Tests ===
 [PASS]               SW   Mem[5] = x1 | got 0x0000000a
-[PASS]             LW   x25  = Mem[5] | got 0x0000000a
+[PASS]            LW   x25   = Mem[5] | got 0x0000000a
 
 === Branch Tests ===
 [PASS]         BEQ not-taken: x26 = 1 | got 0x00000001
-[PASS]          BEQ taken: x27 stays 0 | got 0x00000000
+[PASS]         BEQ taken: x27 stays 0 | got 0x00000000
 [PASS]           BEQ landing: x28 = 1 | got 0x00000001
 
 === Jump Tests ===
@@ -53,11 +69,26 @@
 === x0 Hardwire Test ===
 [PASS]         x0 stays 0 after write | got 0x00000000
 
+=== M-Extension Tests ===
+[PASS]           MUL    x12 = -10 * 7 | got 0xffffffba
+[PASS]    MULH   x13 = upper(-10 * 7) | got 0xffffffff
+[PASS]   MULHSU x14 = signed*unsigned | got 0xffffffff
+[PASS] MULHU  x15 = unsigned*unsigned | got 0x00000006
+[PASS]           DIV    x16 = -10 / 7 | got 0xffffffff
+[PASS]      DIVU   x17 = unsigned / 7 | got 0x24924923
+[PASS]           REM    x18 = -10 % 7 | got 0xfffffffd
+[PASS]      REMU   x19 = unsigned % 7 | got 0x00000001
+
 ============================================================
  TEST SUMMARY
 ============================================================
- Total : 34
- PASS  : 34
+ Total : 42
+ PASS  : 42
  FAIL  : 0
  >>> ALL TESTS PASSED <<<
 ============================================================
+
+$finish called at time : 516 ns : File "/home/utkarsh/Desktop/RISC_V/tb/RISCTop_tb.sv" Line 302
+## quit
+INFO: xsimkernel Simulation Memory Usage: 510760 KB (Peak: 555220 KB), Simulation CPU Usage: 640 ms
+INFO: [Common 17-206] Exiting xsim at Sun Jul 12 01:04:17 2026...

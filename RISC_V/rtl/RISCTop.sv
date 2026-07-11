@@ -38,8 +38,10 @@ module RISCTop(
     logic        alu_src;        // ALU Operand B Select
     logic        branch;         // Branch Instruction
     logic        jump;           // Jump Instruction
+    logic        jalr;           // JALR Instruction Flag
+    logic        auipc;          // AUIPC Instruction Flag
     logic [2:0]  imm_select;     // Immediate Generator Select
-    logic [3:0]  alu_control;    // ALU Operation Select
+    logic [4:0]  alu_control;    // ALU Operation Select
 
     //==========================================================
     // Register File Signals
@@ -60,8 +62,6 @@ module RISCTop(
     logic [31:0] alu_in2;        // ALU Operand B after MUX
     logic [31:0] alu_result;     // ALU Output
     logic        zero;           // Zero Flag
-    logic        jalr;           // JALR control signal
-    logic        auipc;          // AUIPC control signal
 
     //==========================================================
     // Data Memory Signals

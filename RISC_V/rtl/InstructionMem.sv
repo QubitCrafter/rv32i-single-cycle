@@ -1,6 +1,8 @@
 (* blackbox *)
 module InstructionMem(
+    /* verilator lint_off UNUSEDSIGNAL */
     input  logic [31:0] PC,
+    /* verilator lint_on UNUSEDSIGNAL */
     output logic [31:0] instruction
 );
 

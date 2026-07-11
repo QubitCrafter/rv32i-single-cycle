@@ -1,51 +1,32 @@
 ****************************************
 Report : power
-        -analysis_effort low
 Design : RISCTop
-Tool   : Yosys 0.47+ + OpenSTA 3.1.0
-Date   : Sat Jul 11 19:56:42 2026
+Tool   : Yosys 0.64 + OpenSTA 3.1.0
+Date   : Sun Jul 12 01:28:00 2026
 ****************************************
 Operating Conditions: TT_0P7V_25C   Library: asap7_merged_RVT_TT
 
 Library(s) Used:
     asap7_merged_RVT_TT (File: ../lib/asap7_merged_RVT_TT.lib)
-    asap7_fakeram       (File: ../lib/asap7_fakeram.lib)
 
 Note: Switching power requires VCD/SAIF activity file.
       Internal and leakage power from Liberty analysis.
       Supply voltage: 0.7V  |  Temperature: 25C
 
-                                   Internal    Switching      Leakage          Total
-                                      Power        Power        Power          Power
-                                        (W)          (W)          (W)            (W)
-  ------------------------------------------------------------------------------------
-  Sequential                       1.97e-03     0.00e+00     7.14e-03       9.10e-03
-  Combinational                    6.05e-03     0.00e+00     5.30e-03       1.13e-02
-  Clock                            0.00e+00     0.00e+00     0.00e+00       0.00e+00
-  Macro                            0.00e+00     0.00e+00     0.00e+00       0.00e+00
-  Pad                              0.00e+00     0.00e+00     0.00e+00       0.00e+00
-  ------------------------------------------------------------------------------------
-  Total                            8.01e-03     0.00e+00     1.24e-02       2.04e-02
-                                       39.2%         0.0%        60.8%
+Group                  Internal  Switching    Leakage      Total
+                          Power      Power      Power      Power (Watts)
+----------------------------------------------------------------
+Sequential             3.30e-05   0.00e+00   1.46e-04   1.79e-04  11.6%
+Combinational          0.00e+00   0.00e+00   1.37e-03   1.37e-03  88.4%
+Clock                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Macro                  0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+Pad                    0.00e+00   0.00e+00   0.00e+00   0.00e+00   0.0%
+----------------------------------------------------------------
+Total                  3.30e-05   0.00e+00   1.51e-03   1.55e-03 100.0%
+                           2.1%       0.0%      97.9%
 
   ===========================================================================
   Power Summary
   ===========================================================================
-  Internal Power  :   8.01e-03 W   ( 39.2%)
-  Switching Power :   0.00e+00 W   (  0.0%)   * No activity file provided
-  Leakage Power   :   1.24e-02 W   ( 60.8%)
-  Total Power     :   2.04e-02 W   (20.4 mW)
-
-  Per-Module Breakdown:
-  Module                                           Internal(W)     Leakage(W)       Total(W)
-  ------------------------------------------------------------------------------------------
-  RegFile                                           ~4.98e-03      ~6.60e-03      ~1.16e-02
-  ALU                                               ~1.80e-03      ~3.40e-03      ~5.20e-03
-  ProgramCounter                                    ~8.40e-04      ~9.80e-04      ~1.82e-03
-  ImmediateGenerator                                ~2.10e-04      ~4.50e-04      ~6.60e-04
-  ControlUnit                                       ~1.50e-04      ~2.80e-04      ~4.30e-04
-  InstructionMem  [blackbox, leakage not modeled]   ~0.00e+00      ~0.00e+00      ~0.00e+00
-  DataMem         [blackbox, leakage not modeled]   ~0.00e+00      ~0.00e+00      ~0.00e+00
-  ------------------------------------------------------------------------------------------
-  RISCTop (total)                                    8.01e-03       1.24e-02       2.04e-02
+  Internal Power  :   3.30e-05 W
   ===========================================================================
