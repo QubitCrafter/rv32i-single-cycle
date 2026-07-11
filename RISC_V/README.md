@@ -10,6 +10,22 @@ A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **Sy
 
 ---
 
+## Key Specifications
+
+| Feature | Details |
+|:---|:---|
+| **Language** | SystemVerilog |
+| **Architecture** | Harvard |
+| **ISA** | RV32IM |
+| **RTL Modules** | 8 |
+| **Testbenches** | 8 |
+| **Instructions Supported** | 42 |
+| **Verification** | Task-based self-checking |
+| **ASIC Flow** | Yosys + OpenSTA + ASAP7 |
+| **License** | MIT |
+
+---
+
 ## Architecture Overview
 
 ```
@@ -194,7 +210,7 @@ The processor was taken through a full open-source ASIC synthesis and static tim
 | Worst Negative Slack (WNS) | −28,325 ps |
 | Critical Path Bottleneck | Single-cycle instruction fetch through RegFile and ALU. |
 
-> **Note:** The severe timing violation is caused by the Single-Cycle architecture inherently requiring instruction fetch, register reads, full ALU execution, and data memory access to all resolve in a single clock cycle, resulting in a massive combinational delay footprint.
+> **Note:** Timing violation is expected because this is a single-cycle processor where instruction fetch, register access, ALU execution, and memory access occur in one clock cycle.
 
 ### Power (`report_power_riscv_opensta.txt`)
 
@@ -205,6 +221,77 @@ The processor was taken through a full open-source ASIC synthesis and static tim
 | **Total** | **33.0 µW** | **1.51 mW** | **1.55 mW** |
 
 > Switching power is not included as no VCD/SAIF activity file was provided to the tool.
+
+---
+
+## Development Roadmap
+
+```text
+Overall Progress
+
+██████████░░░░░░░░░░ 40%
+
+Completed
+─────────
+✅ Phase 1
+✅ Phase 2
+
+Upcoming
+────────
+⬜ Phase 3
+⬜ Phase 4
+⬜ Phase 5
+```
+
+```text
+Detailed Roadmap
+
+Phase 1 — RV32I Single-Cycle Processor
+──────────────────────────────────────
+✅ RV32I Single-Cycle CPU
+✅ RTL Implementation
+✅ Module-Level Testbenches
+✅ Full CPU Integration Testbench
+✅ ASIC Synthesis (Yosys)
+✅ Static Timing Analysis (OpenSTA)
+
+Phase 2 — RV32M Extension
+─────────────────────────
+✅ Multiply/Divide Extension
+
+Phase 3 — 5-Stage Pipeline
+──────────────────────────
+⬜ IF/ID Register
+⬜ ID/EX Register
+⬜ EX/MEM Register
+⬜ MEM/WB Register
+⬜ Hazard Detection Unit
+⬜ Forwarding Unit
+⬜ Branch Flush
+⬜ Pipeline Verification
+
+Phase 4 — UVM Verification
+──────────────────────────
+⬜ Interface
+⬜ Sequence Item
+⬜ Sequence
+⬜ Sequencer
+⬜ Driver
+⬜ Monitor
+⬜ Agent
+⬜ Scoreboard
+⬜ Functional Coverage
+⬜ Environment
+⬜ Tests
+
+Phase 5 — Memory Hierarchy
+──────────────────────────
+⬜ I-Cache
+⬜ D-Cache
+⬜ Cache Controller
+⬜ Memory Controller
+⬜ Modified Harvard Architecture
+```
 
 ---
 
