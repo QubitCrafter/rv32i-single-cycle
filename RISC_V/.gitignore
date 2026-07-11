@@ -28,6 +28,9 @@ vivado_pid*.str
 synth_schematic.tcl
 create_project.tcl
 
+# ---- Large PDK Files (Exceeds GitHub 100MB Limit) ----
+# Using Git LFS for large files
+
 # ---- Lint artifacts ----
 sim/lint_vivado_report.txt
 obj_dir/
