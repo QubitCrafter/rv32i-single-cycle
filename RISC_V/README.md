@@ -43,13 +43,18 @@ A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **Sy
           │       │          └─────┬───────┘                 │                 │
           │       │                │ imm[31:0]               │                 │
           │  ┌────▼──────┐   ┌─────▼───────┐   ┌─────────────▼─────────────┐   │
-          │  │ Register  │──►│    ALU      │◄──│      Mux: reg / imm       │   │
+          │  │ Register  │──►│    ALU      │◄──│     ALU Operand B MUX     │   │
           │  │   File    │   └─────┬───────┘   └───────────────────────────┘   │
           │  └────▲──────┘         │ alu_result                                │
           │       │          ┌─────▼───────┐                                   │
-          │       └──────────│    Data     │                                   │
-          │    writeback     │   Memory    │                                   |
-          │                  └─────────────┘                                   |
+          │       │          │    Data     │                                   │
+          │       │          │   Memory    │                                   │
+          │       │          └──────┬──────┘                                   │
+          │       │                 │                                          │
+          │       │          ┌──────▼──────┐                                   │
+          │       └──────────│Writeback MUX│                                   │
+          │    writeback     │ (ALU/Mem/PC)│                                   │
+          │                  └─────────────┘                                   │
           └────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -73,7 +78,7 @@ A fully functional, single-cycle **RISC-V RV32IM** processor implemented in **Sy
 RISC_V/
 ├── rtl/                          # Synthesisable RTL sources
 │   ├── RISCTop.sv                #   Top-level processor (datapath wiring)
-│   ├── ALU.sv                    #   Arithmetic Logic Unit (10 operations)
+│   ├── ALU.sv                    #   Arithmetic Logic Unit (Integer + M Extension)
 │   ├── ControlUnit.sv            #   Opcode decoder & control signal generator
 │   ├── DataMem.sv                #   Data memory — synchronous write, async read
 │   ├── ImmediateGenerator.sv     #   Sign-extended immediate generator
@@ -82,7 +87,7 @@ RISC_V/
 │   └── RegFile.sv                #   32×32-bit register file (x0 hardwired to 0)
 │
 ├── tb/                           # Testbenches
-│   ├── RISCTop_tb.sv             #   Full system testbench (34 test cases)
+│   ├── RISCTop_tb.sv             #   Full system testbench (42 test cases)
 │   ├── ALU_tb.sv
 │   ├── ControlUnit_tb.sv
 │   ├── DataMem_tb.sv
@@ -92,8 +97,8 @@ RISC_V/
 │   └── RegFile_tb.sv
 │
 ├── sim/                          # Simulation artifacts
-│   ├── program.hex               #   Pre-assembled test program (RV32I machine code)
-│   ├── sim_results.txt           #   Full simulation output log (34/34 PASS)
+│   ├── program.hex               #   Pre-assembled test program (RV32IM machine code)
+│   ├── sim_results.txt           #   Full simulation output log (42/42 PASS)
 │   └── xsim.log                  #   Vivado XSIM session log
 │
 ├── docs/
